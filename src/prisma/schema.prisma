@@ -13,9 +13,44 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Book {
+model User {
+  userId     String           @id 
+  firstName  String
+  email      String        @unique
+  imageUrl   String?
+  bookReviews BookReview[]
+  libraryTeam LibraryTeam[]
+}
+
+model BookReview {
+  reviewId          Int     @id @default(autoincrement())
+  bookName          String
+  bookDsc           String
+  bookType          String
+  bookReview        String
+  bookImageUrl      String?
+  presentAtLibrary  Boolean
+  referenceNumber   String?
+  bookReviewByLcMember Boolean @default(false)
+  isValidated       Boolean @default(false)
+  isRejected        Boolean @default(false) // New field to indicate if the review is rejected
+  userId            String
+  user              User    @relation(fields: [userId], references: [userId])
+  rejectionMessages RejectionMessage[] // New relation to the RejectionMessage model
+}
+
+model LibraryTeam {
   id        Int      @id @default(autoincrement())
-  title     String
-  author    String
-  published DateTime
+  userId    String
+  user      User     @relation(fields: [userId], references: [userId])
+  rejectionMessages RejectionMessage[] // New relation to the RejectionMessage model
+}
+
+model RejectionMessage {
+  id             Int         @id @default(autoincrement())
+  message        String
+  bookReviewId   Int
+  bookReview     BookReview  @relation(fields: [bookReviewId], references: [reviewId])
+  libraryTeamId  Int
+  libraryTeam    LibraryTeam @relation(fields: [libraryTeamId], references: [id])
 }
