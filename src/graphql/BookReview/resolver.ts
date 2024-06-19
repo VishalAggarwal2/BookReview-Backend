@@ -9,7 +9,7 @@ export const addBookReview=async(ctx:any,{bookReviewInput}:{bookReviewInput:Book
                 bookName:bookReviewInput.bookName,
                 bookDsc:bookReviewInput.bookDsc,
                 bookType:bookReviewInput.bookType,
-                presentAtLibrary:bookReviewInput.presentAtLibrary,
+                presentAtLibrary:bookReviewInput.presentAtLibrary||false,
                 bookImageUrl:bookReviewInput.bookImageUrl||"",
                 referenceNumber:bookReviewInput.referenceNumber||null,
                 bookReview:bookReviewInput.bookReview,

@@ -5,7 +5,7 @@ input BookReviewInput {
   bookType: String!
   bookReview: String!
   bookImageUrl: String
-  presentAtLibrary: Boolean!
+  presentAtLibrary: Boolean
   referenceNumber: String
   userId:String!
 }

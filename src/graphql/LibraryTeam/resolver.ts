@@ -18,12 +18,13 @@ export const allInValidBookReview = async (ctx: any) => {
 
 
 
-export const InvalidtoValidBookReview = async (ctx: any, { data }: { data: any }) => {
+export const InvalidtoValidBookReview = async (ctx: any, data:any) => {
     try {
       // Check if the user is part of the library team
+      console.log("*************************");
+      console.log(data);
       const userId = data.userId;
       const reviewId = data.reviewId;
-      
       const isLibraryTeam = await prisma.libraryTeam.findFirst({
         where: { userId: userId }
       });
@@ -41,11 +42,14 @@ export const InvalidtoValidBookReview = async (ctx: any, { data }: { data: any }
       });
   
       console.log(updatedReview);
-      return updatedReview;
+      return "Review Validated Succ.....";
+      console.log("*************************");
   
     } catch (e) {
-      console.error("Error updating book review validity:", e);
+      console.log("*************************");
+
       return "An error occurred";
+      
     }
   };
 

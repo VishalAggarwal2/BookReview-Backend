@@ -12,6 +12,11 @@ import { addBookReview, allBookReview, allBookReviewByUserId } from "../graphql/
 import cors from 'cors'
 import { LibraryTeamQuery } from "../graphql/LibraryTeam/query";
 import { InvalidtoValidBookReview, allInValidBookReview } from "../graphql/LibraryTeam/resolver";
+import { commentType } from "../graphql/Comment/TypeDef";
+import { commentQuery } from "../graphql/Comment/Query";
+import { addComment, getParticularBookReviewComment } from "../graphql/Comment/Resolver";
+import { LikeQuey } from "../graphql/Like/query";
+import { addLike, deleteLike, getBookReviewsLikedByUser } from "../graphql/Like/resolver";
 const initiateServe = async() => {
     const app = express();
     app.use(express.json());
@@ -22,12 +27,14 @@ const initiateServe = async() => {
             ${bookReviewtype}
             ${userInputType}
             ${bookReviewInputType}
-      
+            ${commentType}
             type Query {
             hello: String
             ${userQuery}
             ${bookQuery}
             ${LibraryTeamQuery}
+            ${commentQuery}
+            ${LikeQuey}
         }
     `;
 
@@ -41,10 +48,14 @@ const initiateServe = async() => {
             allInValidBookReview:allInValidBookReview,
             InvalidtoValidBookReview:InvalidtoValidBookReview,
             isInLibraryTeam:isInLibraryTeam,
+            addComment:addComment,
+            getParticularBookReviewComment:getParticularBookReviewComment,
+            addLike:addLike,
+            deleteLike:deleteLike,
+            getBookReviewsLikedByUser:getBookReviewsLikedByUser
         }
     };
-
-    const server = new ApolloServer({
+        const server = new ApolloServer({
         typeDefs,
         resolvers,
     });
