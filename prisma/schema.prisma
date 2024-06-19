@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  // url      = "postgres://postgres.tdeajdgongjejswoosxm:vishalaggarwal270@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"/
+  // url = "postgres://postgres.oeeimaqpugyqyqehtlbt:DHRUVchandak@library03@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
+  url = "postgresql://vishal_owner:hEreOmxl34KN@ep-broad-frog-a1etfx5d.ap-southeast-1.aws.neon.tech/vishal?sslmode=require"
+  // relationMode = "prisma"
+  // url      = "postgresql://TeamLead:lnmiit@123@localhost:5432/BookFinder"
+// vishalaggarwallnmiit
+}
+// VISHALaggarwal@03
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  userId      String         @id 
+  firstName   String
+  email       String         @unique
+  imageUrl    String?
+  bookReviews BookReview[]
+  libraryTeam LibraryTeam[]
+  comments    Comment[]
+  likes       Like[]
+}
+
+model BookReview {
+  reviewId             Int               @id @default(autoincrement())
+  bookName             String
+  bookDsc              String
+  bookType             String
+  bookReview           String
+  bookImageUrl         String?
+  presentAtLibrary     Boolean
+  referenceNumber      String?
+  bookReviewByLcMember Boolean           @default(false)
+  isValidated          Boolean           @default(false)
+  isRejected           Boolean           @default(false) // New field to indicate if the review is rejected
+  userId               String
+  user                 User              @relation(fields: [userId], references: [userId])
+  rejectionMessages    RejectionMessage[]
+  comments             Comment[]
+  likes                Like[]
+  likeCount            Int               @default(0) // New field to count the number of likes
+}
+
+model LibraryTeam {
+  id                Int                @id @default(autoincrement())
+  userId            String
+  user              User               @relation(fields: [userId], references: [userId])
+  rejectionMessages RejectionMessage[]
+}
+
+model RejectionMessage {
+  id             Int         @id @default(autoincrement())
+  message        String
+  bookReviewId   Int
+  bookReview     BookReview  @relation(fields: [bookReviewId], references: [reviewId])
+  libraryTeamId  Int
+  libraryTeam    LibraryTeam @relation(fields: [libraryTeamId], references: [id])
+}
+
+model Comment {
+  id            Int         @id @default(autoincrement())
+  message       String
+  bookReviewId  Int
+  bookReview    BookReview  @relation(fields: [bookReviewId], references: [reviewId])
+  userId        String
+  user          User        @relation(fields: [userId], references: [userId])
+}
+
+model Like {
+  id            Int         @id @default(autoincrement())
+  userId        String
+  user          User        @relation(fields: [userId], references: [userId])
+  bookReviewId  Int
+  bookReview    BookReview  @relation(fields: [bookReviewId], references: [reviewId])
+
+  @@unique([userId, bookReviewId]) // Ensure a user can like a review only once
+}
