@@ -10,6 +10,7 @@ type BookReview {
   bookReviewByLcMember: Boolean!
   isValidated: Boolean!
   isRejected: Boolean!
+  likeCount:Int
   user: User!
 }
 `
