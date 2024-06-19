@@ -31,8 +31,11 @@ export const addBookReview=async(ctx:any,{bookReviewInput}:{bookReviewInput:Book
 
 
 export const allBookReviewByUserId=async(ctx:any,{userId}:{userId:string})=>{
+    console.log("come here");   
 try{
+
 if(!userId){
+    console.log("come here");
     return [];
 }
 else{
@@ -49,7 +52,9 @@ else{
 // all valid Book Review
 export const allBookReview =async(ctx:any)=>{
     try{
+        console.log("come here ...")
 const allBookReview =  await prisma.bookReview.findMany({where:{isValidated:true}});
+
 console.log(allBookReview);
 return allBookReview;
     }catch(e){
