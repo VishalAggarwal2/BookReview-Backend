@@ -61,3 +61,32 @@ return allBookReview;
 return [];
     }
 }
+
+
+export const booKReviewByUserFunction=async(ctx:any)=>{
+try{
+const {userId} = ctx;
+console.log(userId);
+if(!userId){
+    return null;
+}
+else{
+const userreview= await prisma.user.findUnique({
+    where:{
+        userId:userId
+    }
+})
+
+console.log(userreview);
+return userreview;
+}
+
+
+
+}catch(e){
+    console.log("error in finding user");
+    return null;
+
+}
+
+}

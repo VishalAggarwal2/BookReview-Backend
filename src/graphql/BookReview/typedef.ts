@@ -9,6 +9,7 @@ type BookReview {
   referenceNumber: String
   bookReviewByLcMember: Boolean!
   isValidated: Boolean!
+  userId: String
   isRejected: Boolean!
   likeCount:Int
   user: User!

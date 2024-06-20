@@ -17,6 +17,7 @@ import { commentQuery } from "../graphql/Comment/Query";
 import { addComment, getParticularBookReviewComment } from "../graphql/Comment/Resolver";
 import { LikeQuey } from "../graphql/Like/query";
 import { addLike, deleteLike, getBookReviewsLikedByUser } from "../graphql/Like/resolver";
+import { booKReviewByUserFunction } from "../graphql/BookReview/resolver"; 
 const initiateServe = async() => {
     const app = express();
     app.use(express.json());
@@ -53,6 +54,9 @@ const initiateServe = async() => {
             addLike:addLike,
             deleteLike:deleteLike,
             getBookReviewsLikedByUser:getBookReviewsLikedByUser
+        },
+        BookReview:{
+            user:booKReviewByUserFunction
         }
     };
         const server = new ApolloServer({

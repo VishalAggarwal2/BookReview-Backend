@@ -36,15 +36,17 @@ export const addLike = async (parent:any, args:any) => {
 
 
 export const deleteLike = async (parent:any, args:any) => {
+  console.log(args);
     const { userId, bookReviewId } = args;
-  
+    // const userId="user_2hvUUtmGRMfjqzZHIh7TwLyWEaf";
+    // const bookReviewId=1
     try {
       // Check if the like exists
       const existingLike = await prisma.like.findUnique({
         where: {
           userId_bookReviewId: {
-            userId: userId,
-            bookReviewId: bookReviewId
+            userId: userId||"user_2hvUUtmGRMfjqzZHIh7TwLyWEaf",
+            bookReviewId: bookReviewId||1
           }
         }
       });
@@ -78,8 +80,8 @@ export const deleteLike = async (parent:any, args:any) => {
   
       return  "Remove Like Succ ..."
     } catch (error:any) {
-      console.error('Error deleting like:', error);
-      return "Remove Like Succ";
+      console.error('Error deleting like:');
+      return " error in Remove Like Succ";
     }
   };
 
