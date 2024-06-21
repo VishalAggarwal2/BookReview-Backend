@@ -48,3 +48,20 @@ export const getParticularBookReviewComment = async (parent:any, args:any) => {
       return [];
     }
   };
+
+
+
+  export const getUserComment=async(ctx:any)=>{
+    try{
+      const uid= ctx.userId;
+       if(!uid){
+        return null;
+       }
+  const  user = await prisma.user.findUnique({where:{userId:uid}});
+  return user;
+    }catch(e){
+console.log("error in geting user");
+return null;
+    }
+
+  }

@@ -14,7 +14,7 @@ import { LibraryTeamQuery } from "../graphql/LibraryTeam/query";
 import { InvalidtoValidBookReview, allInValidBookReview } from "../graphql/LibraryTeam/resolver";
 import { commentType } from "../graphql/Comment/TypeDef";
 import { commentQuery } from "../graphql/Comment/Query";
-import { addComment, getParticularBookReviewComment } from "../graphql/Comment/Resolver";
+import { addComment, getParticularBookReviewComment, getUserComment } from "../graphql/Comment/Resolver";
 import { LikeQuey } from "../graphql/Like/query";
 import { addLike, deleteLike, getBookReviewsLikedByUser } from "../graphql/Like/resolver";
 import { booKReviewByUserFunction } from "../graphql/BookReview/resolver"; 
@@ -57,7 +57,11 @@ const initiateServe = async() => {
         },
         BookReview:{
             user:booKReviewByUserFunction
+        },
+        Comment:{
+            user:getUserComment
         }
+
     };
         const server = new ApolloServer({
         typeDefs,
