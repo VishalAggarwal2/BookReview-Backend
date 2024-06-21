@@ -46,14 +46,17 @@ const addLike = (parent, args) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.addLike = addLike;
 const deleteLike = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(args);
     const { userId, bookReviewId } = args;
+    // const userId="user_2hvUUtmGRMfjqzZHIh7TwLyWEaf";
+    // const bookReviewId=1
     try {
         // Check if the like exists
         const existingLike = yield PrismaClient_1.default.like.findUnique({
             where: {
                 userId_bookReviewId: {
-                    userId: userId,
-                    bookReviewId: bookReviewId
+                    userId: userId || "user_2hvUUtmGRMfjqzZHIh7TwLyWEaf",
+                    bookReviewId: bookReviewId || 1
                 }
             }
         });
@@ -84,8 +87,8 @@ const deleteLike = (parent, args) => __awaiter(void 0, void 0, void 0, function*
         return "Remove Like Succ ...";
     }
     catch (error) {
-        console.error('Error deleting like:', error);
-        return "Remove Like Succ";
+        console.error('Error deleting like:');
+        return " error in Remove Like Succ";
     }
 });
 exports.deleteLike = deleteLike;

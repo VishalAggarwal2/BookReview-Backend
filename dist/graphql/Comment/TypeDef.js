@@ -8,6 +8,6 @@ type Comment {
     bookReviewId: Int!
     userId: String!
     bookReview: BookReview!
-    user: User!
+    user: User
   }
 `;

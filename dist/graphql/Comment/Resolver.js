@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getParticularBookReviewComment = exports.addComment = void 0;
+exports.getUserComment = exports.getParticularBookReviewComment = exports.addComment = void 0;
 const PrismaClient_1 = __importDefault(require("../../Client/PrismaClient"));
 const addComment = (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
     const { message, bookReviewId, userId } = args;
@@ -60,3 +60,18 @@ const getParticularBookReviewComment = (parent, args) => __awaiter(void 0, void 
     }
 });
 exports.getParticularBookReviewComment = getParticularBookReviewComment;
+const getUserComment = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const uid = ctx.userId;
+        if (!uid) {
+            return null;
+        }
+        const user = yield PrismaClient_1.default.user.findUnique({ where: { userId: uid } });
+        return user;
+    }
+    catch (e) {
+        console.log("error in geting user");
+        return null;
+    }
+});
+exports.getUserComment = getUserComment;

@@ -31,6 +31,7 @@ const Query_1 = require("../graphql/Comment/Query");
 const Resolver_1 = require("../graphql/Comment/Resolver");
 const query_4 = require("../graphql/Like/query");
 const resolver_4 = require("../graphql/Like/resolver");
+const resolver_5 = require("../graphql/BookReview/resolver");
 const initiateServe = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = (0, express_1.default)();
     app.use(express_1.default.json());
@@ -66,6 +67,12 @@ const initiateServe = () => __awaiter(void 0, void 0, void 0, function* () {
             addLike: resolver_4.addLike,
             deleteLike: resolver_4.deleteLike,
             getBookReviewsLikedByUser: resolver_4.getBookReviewsLikedByUser
+        },
+        BookReview: {
+            user: resolver_5.booKReviewByUserFunction
+        },
+        Comment: {
+            user: Resolver_1.getUserComment
         }
     };
     const server = new server_1.ApolloServer({
