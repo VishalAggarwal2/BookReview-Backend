@@ -13,6 +13,7 @@ type BookReview {
   isRejected: Boolean!
   likeCount:Int
   user: User!
+  bookReview:String
 }
 `
 
