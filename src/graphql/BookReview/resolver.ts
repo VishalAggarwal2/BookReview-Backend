@@ -90,3 +90,18 @@ return userreview;
 }
 
 }
+
+
+// get particular book
+
+export const getParticularBookReviewId=async(ctx:any,data:any)=>{
+try{
+    console.log(data);
+const reviewId= data.reviewId;
+const bookReview = await prisma.bookReview.findUnique({where:{reviewId:reviewId}});
+return bookReview;
+}catch(e){
+    return null;
+
+}
+}
