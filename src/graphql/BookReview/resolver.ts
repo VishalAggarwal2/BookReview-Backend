@@ -105,3 +105,19 @@ return bookReview;
 
 }
 }
+
+
+
+// book not in library 
+export const NotInLibrary=async()=>{
+    try{
+const bookNotInLibrary= await prisma.bookReview.findMany({where:{
+    presentAtLibrary:false
+}});
+
+return bookNotInLibrary;
+    }catch(e){
+        console.log("issue in book not in library");
+return [];
+    }
+}

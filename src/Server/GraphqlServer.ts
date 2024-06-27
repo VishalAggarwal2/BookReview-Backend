@@ -8,7 +8,7 @@ import bookReviewtype from "../graphql/BookReview/typedef";
 import userInputType from "../graphql/User/Input";
 import { bookReviewInputType } from "../graphql/BookReview/bookReviewInput";
 import { bookQuery } from "../graphql/BookReview/query";
-import { addBookReview, allBookReview, allBookReviewByUserId, getParticularBookReviewId } from "../graphql/BookReview/resolver";
+import { NotInLibrary, addBookReview, allBookReview, allBookReviewByUserId, getParticularBookReviewId } from "../graphql/BookReview/resolver";
 import cors from 'cors'
 import { LibraryTeamQuery } from "../graphql/LibraryTeam/query";
 import { InvalidtoValidBookReview, allInValidBookReview } from "../graphql/LibraryTeam/resolver";
@@ -54,7 +54,8 @@ const initiateServe = async() => {
             addLike:addLike,
             deleteLike:deleteLike,
             getBookReviewsLikedByUser:getBookReviewsLikedByUser,
-            getParticularBookReviewId:getParticularBookReviewId
+            getParticularBookReviewId:getParticularBookReviewId,
+            NotInLibrary:NotInLibrary
         },
         BookReview:{
             user:booKReviewByUserFunction
