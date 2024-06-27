@@ -58,6 +58,7 @@ const allBookReview =  await prisma.bookReview.findMany({where:{isValidated:true
 console.log(allBookReview);
 return allBookReview;
     }catch(e){
+        console.log(e);
 return [];
     }
 }
@@ -110,6 +111,7 @@ return bookReview;
 
 // book not in library 
 export const NotInLibrary=async()=>{
+    console.log("called");
     try{
 const bookNotInLibrary= await prisma.bookReview.findMany({where:{
     presentAtLibrary:false
