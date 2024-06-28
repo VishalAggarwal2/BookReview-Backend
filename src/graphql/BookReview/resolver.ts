@@ -1,5 +1,6 @@
 import { BookReviewInputInterface } from "./bookReviewInputInterface";
 import prisma from "../../Client/PrismaClient";
+import { sendMailToLibraryTeam } from "../../Service/Mailer";
 export const addBookReview=async(ctx:any,{bookReviewInput}:{bookReviewInput:BookReviewInputInterface})=>{
     try {
         console.log("called");
@@ -19,7 +20,7 @@ export const addBookReview=async(ctx:any,{bookReviewInput}:{bookReviewInput:Book
                 isRejected: false // Assuming default value
             }
         });
-
+         sendMailToLibraryTeam(bookReviewInput);
         return "Book review added successfully";
     } catch (error) {
         console.error("Error adding book review:", error);
