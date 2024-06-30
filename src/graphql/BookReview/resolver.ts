@@ -54,7 +54,11 @@ else{
 export const allBookReview =async(ctx:any)=>{
     try{
         console.log("come here ...")
-const allBookReview =  await prisma.bookReview.findMany({where:{isValidated:true}});
+const allBookReview =  await prisma.bookReview.findMany({where:{
+    
+    isValidated:true,
+    isRejected:false
+}});
 
 console.log(allBookReview);
 return allBookReview;
@@ -122,5 +126,27 @@ return bookNotInLibrary;
     }catch(e){
         console.log("issue in book not in library");
 return [];
+    }
+}
+
+
+
+// getiong rejection message of the particular book review
+
+export const getrejectMessage=async(ctx:any)=>{
+    try{
+        console.log("calledd this function");
+        console.log(ctx.reviewId);
+ const rejectMessage= await prisma.rejectionMessage.findFirst({
+    where:{
+        bookReviewId:ctx.reviewId
+    }
+ })
+
+ console.log(rejectMessage);
+
+ return rejectMessage;
+    }catch{
+        return null;
     }
 }

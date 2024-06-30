@@ -3,7 +3,12 @@ import prisma from "../../Client/PrismaClient";
 export const allInValidBookReview = async (ctx: any) => {
   try {
     const allBookReview = await prisma.bookReview.findMany({
-      where: { isValidated: false }
+      where: {  
+        isValidated: false,  
+       isRejected:false
+
+
+      }
     });
 
     console.log(allBookReview);
@@ -55,10 +60,18 @@ export const InvalidtoValidBookReview = async (ctx: any, data:any) => {
 
 
 
-  export const rejectBookReview = async (ctx: any, { data }: { data: any }) => {
+
+
+
+
+
+
+  export const rejectBookReview = async (ctx: any, data: any) => {
     try {
       const { userId, reviewId, rejectionMessage } = data;
-  
+  console.log(userId);
+  console.log(reviewId);
+  console.log(rejectionMessage);
       // Check if the user is part of the library team
       const isLibraryTeam = await prisma.libraryTeam.findFirst({
         where: { userId: userId }
@@ -88,10 +101,42 @@ export const InvalidtoValidBookReview = async (ctx: any, data:any) => {
       console.log('Rejection Message:', newRejectionMessage);
       console.log('Updated Review:', updatedReview);
       
-      return updatedReview;
+      return "rejected succ ....";
   
     } catch (e) {
       console.error("Error rejecting book review:", e);
       return "An error occurred";
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+// Get all rejected book reviews for a particular user
+export const allRejectedBookReviewsForUser = async (ctx: any, userId: string) => {
+  try {
+    const rejectedBookReviews = await prisma.bookReview.findMany({
+      where: {
+        isRejected: true,
+        userId: userId
+      },
+      include: {
+        rejectionMessages: true // Fetch rejection messages
+      }
+    });
+
+    console.log(rejectedBookReviews);
+    return rejectedBookReviews;
+  } catch (e) {
+    console.error("Error fetching rejected book reviews:", e);
+    return [];
+  }
+};

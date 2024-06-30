@@ -14,6 +14,7 @@ type BookReview {
   likeCount:Int
   user: User!
   bookReview:String
+  RejectionMessage: RejectionMessage
 }
 `
 
