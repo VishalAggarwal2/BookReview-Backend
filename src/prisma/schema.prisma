@@ -6,12 +6,7 @@
 
 datasource db {
   provider = "postgresql"
-  // url      = "postgres://postgres.tdeajdgongjejswoosxm:vishalaggarwal270@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"/
-  // url = "postgres://postgres.oeeimaqpugyqyqehtlbt:DHRUVchandak@library03@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
   url = "postgresql://vishal_owner:hEreOmxl34KN@ep-broad-frog-a1etfx5d.ap-southeast-1.aws.neon.tech/vishal?sslmode=require"
-  // relationMode = "prisma"
-  // url      = "postgresql://TeamLead:lnmiit@123@localhost:5432/BookFinder"
-// vishalaggarwallnmiit
 }
 // VISHALaggarwal@03
 
